@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG House with Garden using D3</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <div id="viz"></div>
+    <script>
+        const svg = d3.select("#viz")
+            .append("svg")
+            .attr("width", 400)
+            .attr("height", 300);
+
+        // Garden
+        svg.append("rect")
+            .attr("x", 0)
+            .attr("y", 200)
+            .attr("width", 400)
+            .attr("height", 100)
+            .attr("fill", "#90EE90"); // Grass
+
+
+
+        // House
+        svg.append("rect")
+            .attr("x", 180)
+            .attr("y", 120)
+            .attr("width", 120)
+            .attr("height", 80)
+            .attr("fill", "#8B4513")
+            .attr("stroke", "#654321")
+            .attr("stroke-width", 2); // Walls
+
+        svg.append("polygon")
+            .attr("points", "180,120 240,80 300,120")
+            .attr("fill", "#DC143C")
+            .attr("stroke", "#B22222")
+            .attr("stroke-width", 2); // Roof
+
+        // Door
+        svg.append("rect")
+            .attr("x", 220)
+            .attr("y", 160)
+            .attr("width", 20)
+            .attr("height", 40)
+            .attr("fill", "#654321");
+
+        svg.append("circle")
+            .attr("cx", 235)
+            .attr("cy", 185)
+            .attr("r", 2)
+            .attr("fill", "#FFD700"); // Doorknob
+
+        // Windows
+        const windows = [
+            { x: 190, y: 140 },
+            { x: 275, y: 140 }
+        ];
+
+        svg.selectAll(".window")
+            .data(windows)
+            .enter()
+            .append("rect")
+            .attr("class", "window")
+            .attr("x", d => d.x)
+            .attr("y", d => d.y)
+            .attr("width", 15)
+            .attr("height", 15)
+            .attr("fill", "#87CEEB")
+            .attr("stroke", "#4682B4")
+            .attr("stroke-width", 1);
+
+        // Chimney
+        svg.append("rect")
+            .attr("x", 260)
+            .attr("y", 70)
+            .attr("width", 10)
+            .attr("height", 30)
+            .attr("fill", "#696969");
+
+        // Sun
+        svg.append("circle")
+            .attr("cx", 350)
+            .attr("cy", 50)
+            .attr("r", 20)
+            .attr("fill", "#FFD700");
+
+        // Sun rays
+        const rays = [
+            { x1: 350, y1: 30, x2: 350, y2: 20 },
+            { x1: 350, y1: 70, x2: 350, y2: 80 },
+            { x1: 330, y1: 50, x2: 320, y2: 50 },
+            { x1: 370, y1: 50, x2: 380, y2: 50 }
+        ];
+
+        svg.selectAll(".ray")
+            .data(rays)
+            .enter()
+            .append("line")
+            .attr("class", "ray")
+            .attr("x1", d => d.x1)
+            .attr("y1", d => d.y1)
+            .attr("x2", d => d.x2)
+            .attr("y2", d => d.y2)
+            .attr("stroke", "#FFD700")
+            .attr("stroke-width", 2);
+    </script>
+</body>
+
+</html>
