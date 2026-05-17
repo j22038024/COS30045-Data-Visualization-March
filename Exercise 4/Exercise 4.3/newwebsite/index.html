@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PowerSmartAU</title>
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <script src="js/scripts.js" defer></script>
+
+
+</head>
+
+<body>
+
+    <!--NAVIGATION/ROUTERS -->
+    <nav id="main-nav">
+        <a class="nav-logo" onclick="showPage('home')" title="Go to Home">
+            <div class="power-icon">
+                <img src="images/PowerIcon.png" alt="PowerSmart Logo" />
+            </div>
+            <span class="nav-brand">Power<span>Smart</span> <em>AU</em></span>
+        </a>
+
+        <ul class="nav-links" id="nav-links">
+            <li><button onclick="showPage('home')" data-page="home">Home</button></li>
+            <li><button onclick="showPage('televisions')" data-page="televisions">Televisions</button></li>
+            <li><button onclick="showPage('about')" data-page="about">About Us</button></li>
+        </ul>
+
+        <span class="page-indicator" id="page-indicator">HOME</span>
+    </nav>
+
+    <!--PAGES -->
+    <main>
+
+        <!--HOME -->
+        <section class="page active" id="page-home">
+
+            <div class="hero">
+                <div class="hero-bg"></div>
+                <div class="hero-content">
+                    <p class="hero-eyebrow">Australia's Energy Efficiency Resource</p>
+                    <h1 class="hero-title">Know Your<br /><em>Energy</em><br />Costs.</h1>
+                    <p class="hero-subtitle">
+                        Australian households spend an average of <strong>$2,000&nbsp;per year</strong> on electricity.
+                        Understanding appliance energy consumption is the first step toward reducing your bills
+                        and lowering your carbon footprint.
+                    </p>
+                    <button class="hero-cta" onclick="showPage('televisions')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                        Explore Televisions
+                    </button>
+
+                    <div class="stat-bar">
+                        <div class="stat-item">
+                            <span class="stat-num">~$2,000</span>
+                            <span class="stat-label">Average AU annual power bill</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">40%</span>
+                            <span class="stat-label">Bill reduction possible with efficient appliances</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">6 Stars</span>
+                            <span class="stat-label">Australia's energy rating scale</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">26¢</span>
+                            <span class="stat-label">Average AU electricity cost per kWh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block">
+                <div class="section-header">
+                    <h2>Why Energy Ratings Matter</h2>
+                    <p>Australia's Energy Rating Label has been helping consumers make informed decisions since 1986.
+                    </p>
+                </div>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">⚡</div>
+                        <h3>Star Ratings</h3>
+                        <p>The more stars, the more energy-efficient the appliance. A 6-star fridge uses roughly half
+                            the energy of a 2-star model of the same size.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">$</div>
+                        <h3>Running Costs</h3>
+                        <p>Labels display estimated annual energy consumption in kWh, allowing you to calculate exact
+                            running costs based on your local electricity rate.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🌏</div>
+                        <h3>Climate Impact</h3>
+                        <p>Australia's grid emits approximately 0.7 kg CO₂ per kWh. Choosing efficient appliances can
+                            save hundreds of kilograms of emissions annually.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔋</div>
+                        <h3>Standby Power</h3>
+                        <p>Australian homes lose up to 10% of electricity to standby power. Modern efficient appliances
+                            are designed to minimise idle consumption.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block section-alt">
+                <div class="section-header">
+                    <h2>Top Energy-Consuming Appliances</h2>
+                    <p>Ranked by typical annual energy use in an average Australian household.</p>
+                </div>
+                <div class="bar-chart-container">
+                    <div class="bar-row">
+                        <span class="bar-label">HVAC / Air Conditioning</span>
+                        <div class="bar-wrap">
+                            <div class="bar" style="--w:100%">4,000 kWh</div>
+                        </div>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">Water Heating</span>
+                        <div class="bar-wrap">
+                            <div class="bar" style="--w:82%">3,270 kWh</div>
+                        </div>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">Refrigeration</span>
+                        <div class="bar-wrap">
+                            <div class="bar" style="--w:45%">1,800 kWh</div>
+                        </div>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">Lighting</span>
+                        <div class="bar-wrap">
+                            <div class="bar" style="--w:38%">1,500 kWh</div>
+                        </div>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">Washing Machine / Dryer</span>
+                        <div class="bar-wrap">
+                            <div class="bar" style="--w:30%">1,200 kWh</div>
+                        </div>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">Televisions &amp; Entertainment</span>
+                        <div class="bar-wrap">
+                            <div class="bar bar-accent" style="--w:22%">880 kWh</div>
+                        </div>
+                    </div>
+                    <div class="bar-row">
+                        <span class="bar-label">Cooking Appliances</span>
+                        <div class="bar-wrap">
+                            <div class="bar" style="--w:18%">720 kWh</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="source-note">Source: Australian Government — Department of Climate Change, Energy, the
+                    Environment and Water (2023 estimate)</p>
+            </div>
+
+        </section>
+
+        <!-- ── TELEVISIONS ────────────────────────────────── -->
+        <section class="page" id="page-televisions">
+
+            <div class="page-hero">
+                <div class="page-hero-bg"></div>
+                <div class="page-hero-content">
+                    <p class="hero-eyebrow">Product Category</p>
+                    <h1 class="hero-title">Televisions</h1>
+                    <p class="hero-subtitle">
+                        TVs account for a growing share of household energy use as screen sizes increase.
+                        Understanding how panel technology and usage patterns affect consumption can save
+                        Australian households up to <strong>$80 per year</strong> per device.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="responsive-svg-container"></div>
+
+            <script src="js/D3.js"></script>
+
+
+
+
+
+
+
+        </section>
+
+        <!-- ── ABOUT US ───────────────────────────────────── -->
+        <section class="page" id="page-about">
+
+            <div class="page-hero">
+                <div class="page-hero-bg"></div>
+                <div class="page-hero-content">
+                    <p class="hero-eyebrow">Our Mission</p>
+                    <h1 class="hero-title">About Us</h1>
+                    <p class="hero-subtitle">
+                        PowerSmart AU is an independent, non-commercial resource dedicated to helping
+                        Australian consumers understand appliance energy consumption and make choices that
+                        reduce both household costs and environmental impact.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section-block">
+                <div class="section-header">
+                    <h2>Who We Are</h2>
+                </div>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p>
+                            Founded in 2024, PowerSmart AU was created to bridge the gap between complex
+                            government energy data and the everyday purchasing decisions Australians make.
+                            We translate technical standards, efficiency ratings, and consumption figures
+                            into clear, actionable guidance.
+                        </p>
+                        <p>
+                            Our data is sourced from the Australian Government's
+                            <strong>Energy Rating website</strong> (energyrating.gov.au), the
+                            <strong>Department of Climate Change, Energy, the Environment and Water</strong>,
+                            and independent laboratory testing where available.
+                        </p>
+                        <p>
+                            We have no commercial relationships with appliance manufacturers or retailers.
+                            Our only goal is to give you the information you need to make confident, informed decisions.
+                        </p>
+                    </div>
+                    <div class="about-values">
+                        <div class="value-item">
+                            <span class="value-icon">🔍</span>
+                            <div>
+                                <strong>Data-Driven</strong>
+                                <p>Every figure on our site is sourced from verified government and independent testing
+                                    data.</p>
+                            </div>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">🇦🇺</span>
+                            <div>
+                                <strong>Australia-Focused</strong>
+                                <p>We use Australian electricity tariffs, climate zones, and usage patterns — not
+                                    overseas averages.</p>
+                            </div>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">🌿</span>
+                            <div>
+                                <strong>Planet Conscious</strong>
+                                <p>Efficient appliances are one of the most accessible ways households can reduce
+                                    emissions today.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block section-alt">
+                <div class="section-header">
+                    <h2>Australia's Energy Context</h2>
+                    <p>Key figures shaping residential electricity consumption nationally.</p>
+                </div>
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🏠</div>
+                        <h3>10.8 Million Households</h3>
+                        <p>Australia has approximately 10.8 million residential properties, the vast majority connected
+                            to the national electricity grid.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h3>~7,000 kWh per Year</h3>
+                        <p>The average Australian household consumes around 7,000 kWh annually — above the OECD average
+                            due to home size and climate cooling demands.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">☀️</div>
+                        <h3>Rooftop Solar Leader</h3>
+                        <p>Australia has one of the world's highest rates of residential solar adoption, with over 3.5
+                            million rooftop PV systems installed as of 2024.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📉</div>
+                        <h3>Grid Emissions Falling</h3>
+                        <p>Australia's grid emission intensity has dropped from ~0.84 kg CO₂/kWh in 2010 to
+                            approximately 0.60 kg CO₂/kWh in 2024, driven by renewable growth.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block">
+                <div class="section-header">
+                    <h2>Useful Resources</h2>
+                </div>
+                <div class="resource-list">
+                    <a class="resource-link" href="https://www.energyrating.gov.au" target="_blank" rel="noopener">
+                        <span>energyrating.gov.au</span>
+                        <span class="rl-desc">Official Australian Government energy rating product database</span>
+                    </a>
+                    <a class="resource-link" href="https://www.energy.gov.au" target="_blank" rel="noopener">
+                        <span>energy.gov.au</span>
+                        <span class="rl-desc">Department of Climate Change, Energy, the Environment and Water</span>
+                    </a>
+                    <a class="resource-link" href="https://www.cleanenergycouncil.org.au" target="_blank"
+                        rel="noopener">
+                        <span>cleanenergycouncil.org.au</span>
+                        <span class="rl-desc">Clean Energy Council — renewable energy and efficiency advocacy</span>
+                    </a>
+                    <a class="resource-link" href="https://www.aemc.gov.au" target="_blank" rel="noopener">
+                        <span>aemc.gov.au</span>
+                        <span class="rl-desc">Australian Energy Market Commission — regulation and market data</span>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="nav-brand">Power<span>Smart</span> <em>AU</em></span>
+                <p>Independent appliance energy information for Australian households.</p>
+                <p>All financial estimations are done in the Australian Dollar (AUD)</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; <span id="footer-year"></span> PowerSmart AU</p>
+                <p class="footer-name">Developed by <strong>Daylen</strong></p>
+                <p class="genai-note">
+                    <span class="genai-badge">GenAI</span>
+                    Portions of this website's code and content were generated with the
+                    assistance of Claude (Anthropic) and reviewed for accuracy.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+
+</html>
