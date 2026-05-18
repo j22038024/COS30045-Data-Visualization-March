@@ -11,6 +11,7 @@ const PAGES = {
     home: { label: 'HOME', title: 'PowerSmart AU — Home' },
     televisions: { label: 'TELEVISIONS', title: 'PowerSmart AU — Televisions' },
     about: { label: 'ABOUT US', title: 'PowerSmart AU — About Us' },
+    data : { label: 'DATA', title: 'PowerSmart AU — Data' }
 };
 
 /** Currently visible page ID */
@@ -80,6 +81,7 @@ function addNavHoverFeedback() {
         home: 'Go to Home page',
         televisions: 'View Television energy data',
         about: 'Learn about PowerSmart AU',
+        data : 'View the data behind our visualisations'
     };
 
     document.querySelectorAll('.nav-links li button').forEach(btn => {

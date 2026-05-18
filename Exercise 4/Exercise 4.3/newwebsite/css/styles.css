@@ -580,15 +580,48 @@ main {
 /* ════════════════════════════════════════════
    TELEVISIONS PAGE
    ════════════════════════════════════════════ */
-.responsive-svg-container {
-    margin-right: auto;
-    margin-left: auto;
-    width: 100%;
-    height: 100%;
-    max-width: 1200px;
-
-
+.energy-models {
+    padding: 80px;
+    box-sizing: border-box;
 }
+
+.energy-models img {
+    width: 70%;
+    height: 70%;
+}
+
+.energy-models p {
+    padding-top: 20px;
+}
+
+.energy-screensize {
+    padding: 80px;
+    box-sizing: border-box;
+}
+
+.energy-screensize img {
+    width: 70%;
+    height: 70%;
+}
+
+.energy-screensize p {
+    padding-top: 20px;
+}
+
+.energy-tech {
+    padding: 80px;
+    box-sizing: border-box;
+}
+
+.energy-tech img {
+    width: 70%;
+    height: 70%;
+}
+
+.energy-tech p {
+    padding-top: 20px;
+}
+
 
 /* ════════════════════════════════════════════
    ABOUT PAGE
@@ -690,6 +723,24 @@ main {
     color: var(--text-muted);
     text-align: right;
 }
+
+/* ════════════════════════════════════════════
+   Data Page
+   ════════════════════════════════════════════ */
+.responsive-svg-container {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+
+
+}
+.responsive-svg-container svg {
+    background: var(--bg-dark);
+}
+
+
 
 /* ════════════════════════════════════════════
    FOOTER

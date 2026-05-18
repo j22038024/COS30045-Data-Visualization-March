@@ -28,6 +28,7 @@
             <li><button onclick="showPage('home')" data-page="home">Home</button></li>
             <li><button onclick="showPage('televisions')" data-page="televisions">Televisions</button></li>
             <li><button onclick="showPage('about')" data-page="about">About Us</button></li>
+            <li><button onclick="showPage('data')" data-page="data">Data</button></li>
         </ul>
 
         <span class="page-indicator" id="page-indicator">HOME</span>
@@ -167,7 +168,7 @@
 
         </section>
 
-        <!-- ── TELEVISIONS ────────────────────────────────── -->
+                <!-- ── TELEVISIONS ────────────────────────────────── -->
         <section class="page" id="page-televisions">
 
             <div class="page-hero">
@@ -183,10 +184,90 @@
                 </div>
             </div>
 
+            <div class="section-block">
+                <div class="section-header">
+                    <!-- TECH COMPARISON-->
+                    <h2>Energy Consumption Across Models, Technologies and Screen Size</h2>
+                    <p>Energy consumption varies significantly across display Models.</p>
+                </div>
 
-            <div class="responsive-svg-container"></div>
+                <div class="energy-stuff">
 
-            <script src="js/D3.js"></script>
+                    <div class="energy-models">
+                        <img src="images/energy-models.png">
+                        <p>
+                            Energy consumption varies significantly across our television range, with usage levels
+                            differing by model specifications such as screen size, display technology, and efficiency
+                            rating.
+                            The chart shown represents a sample of models from a catalogue of over 4,000 televisions,
+                            providing an illustrative view of how annual energy usage can vary across the product range.
+                            While some models are designed for higher energy efficiency, others may consume more power
+                            to support larger displays or advanced picture technologies.<br><br>
+
+                            Power usage differs across more than 4,000 TV models surveyed. The chart above shows a
+                            representative sample, highlighting how annual energy consumption can vary depending on
+                            model size and features. This helps customers compare running costs alongside picture
+                            quality and
+                            performance when choosing the right TV. Customers who wish to purchase televisions should
+                            take into accountscreen size , energy efficient rating and cost of energy in the customer'
+                            region</p>
+                    </div>
+
+                    <div class="energy-screensize">
+                        <img src="images/energy-screensize.png">
+                        <p>
+                            Energy consumption generally increases with screen size, with larger televisions requiring
+                            significantly more power than smaller models. While smaller screens tend to have lower
+                            running costs, larger and premium display models can consume substantially more energy due
+                            to increased panel area and enhanced performance features. This comparison helps customers
+                            balance screen size, viewing experience, and long-term energy efficiency.</p>
+                    </div>
+
+                    <div class="energy-tech">
+                        <img src="images/energy-tech.png">
+                        <p>
+                            When choosing your next display, understanding the balance between performance and power is
+                            key. According to recent consumption data, traditional LCD screens remain the most
+                            energy-efficient option, averaging roughly 335 kWh per year. In contrast, LED-backlit LCDs
+                            and premium OLED panels draw more power to achieve their superior brightness and color
+                            depth, with OLEDs reaching the highest average consumption at nearly 490 kWh per year. This
+                            increase is largely due to OLED's "emissive" nature, where every pixel generates its own
+                            light to produce those signature deep blacks and vibrant highlights.<br><br>
+
+                            While OLED offers the pinnacle of picture quality, its per-pixel power demands mean it
+                            typically costs more to operate annually than a standard LCD. LED models sit in the middle,
+                            offering a bright, versatile middle ground but still requiring significantly more energy
+                            than older liquid crystal tech. When building your setup, consider whether the stunning
+                            visual fidelity of an OLED or the high-output punch of an LED outweighs the lower long-term
+                            operating costs of a traditional LCD.</p>
+                    </div>
+                </div>
+
+                <div class="recomendation">
+                    <h2>
+                        Recomendation
+                    </h2>
+                    <p>
+                        Selecting the perfect television requires balancing visual performance with your home’s specific
+                        needs and long-term costs. Start by choosing a technology that fits your environment: OLED
+                        provides unmatched contrast for dedicated home theaters, while LED models offer the high
+                        brightness needed for sunlit living rooms. Next, determine the ideal screen size by measuring
+                        your seating distance; a common rule is to ensure the screen occupies about 30 to 40 degrees of
+                        your field of vision for an immersive experience. Finally, keep the energy rating in mind—while
+                        premium OLED panels deliver stunning clarity, they often sit at the higher end of the
+                        consumption scale, whereas traditional LCD options offer a more budget-friendly footprint for
+                        your monthly utility bills.
+                    </p>
+
+                </div>
+
+
+
+
+
+
+        </section>
+
 
 
 
@@ -322,6 +403,35 @@
                 </div>
             </div>
 
+        </section>
+
+        <!-- ── DATA ────────────────────────────────── -->
+        
+        <section class="page" id="page-data">
+
+            <div class="page-hero">
+                <div class="page-hero-bg"></div>
+                <div class="page-hero-content">
+                    <p class="hero-eyebrow">Brands Data</p>
+                    <h1 class="hero-title">Televisions</h1>
+                    <p class="hero-subtitle">
+                        In this section, we present the raw data behind our television 
+                        energy consumption visualisations.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="responsive-svg-container">
+                
+            </div>
+
+            <script src="js/D3.js"></script>
+
+            
+        
+        
+        
         </section>
 
     </main>
