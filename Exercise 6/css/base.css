@@ -1,0 +1,137 @@
+/* ============================================
+   BASE.CSS — Reset, Variables, Global Styles
+   ============================================ */
+
+:root {
+    /* Warm light palette */
+    --bg: #fdf6ec;
+    --surface: #ffffff;
+    --border: #e8ddd0;
+    --border-light: #f0e8dc;
+
+    /* Pill colours */
+    --pill-bg: #e8ddd0;
+    --pill-text: #6b5a48;
+    --pill-active-bg: #d4780a;
+    --pill-active-text: #ffffff;
+    --pill-hover-bg: #ddd0c0;
+
+    /* Text */
+    --text-primary: #2c2318;
+    --text-secondary: #7a6a58;
+    --text-muted: #b0a090;
+
+    /* Typography */
+    --font: 'Nunito', sans-serif;
+
+    /* Misc */
+    --radius-pill: 999px;
+    --radius: 6px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+/* ---- App wrapper ---- */
+.app-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px 20px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 4px 24px rgba(180, 140, 80, 0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ---- Pill rows ---- */
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* ---- Pills ---- */
+.pill {
+    background: var(--pill-bg);
+    color: var(--pill-text);
+    border: none;
+    border-radius: var(--radius-pill);
+    padding: 7px 18px;
+    font-family: var(--font);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s var(--ease), color 0.18s var(--ease), transform 0.1s;
+    user-select: none;
+}
+
+.pill:hover {
+    background: var(--pill-hover-bg);
+}
+
+.pill.active {
+    background: var(--pill-active-bg);
+    color: var(--pill-active-text);
+}
+
+.pill:active {
+    transform: scale(0.96);
+}
+
+/* ---- Chart wrap ---- */
+.chart-wrap {
+    position: relative;
+}
+
+#histogram-container {
+    width: 100%;
+}
+
+/* ---- Loading ---- */
+.loading-msg {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.dots {
+    display: inline-block;
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+}

@@ -1,0 +1,114 @@
+/* ============================================
+   VISUALISATIONS.CSS — Chart & Tooltip Styles
+   ============================================ */
+
+/* ---- SVG ---- */
+.histogram-svg {
+    display: block;
+    width: 100%;
+    overflow: visible;
+}
+
+/* ---- Axes ---- */
+.axis text {
+    font-family: var(--font);
+    font-size: 12px;
+    fill: var(--text-secondary);
+}
+
+.axis line,
+.axis path {
+    stroke: var(--border);
+}
+
+/* Remove domain line on Y axis */
+.axis--y .domain {
+    stroke: none;
+}
+
+/* Horizontal grid lines from Y axis */
+.axis--y .tick line {
+    stroke: var(--border-light);
+    stroke-dasharray: none;
+}
+
+/* ---- Axis labels ---- */
+.axis-label {
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 600;
+    fill: var(--text-secondary);
+}
+
+/* ---- Bars ---- */
+.bar {
+    fill: #8a8a8a;
+    cursor: pointer;
+    transition: fill 0.15s;
+}
+
+.bar:hover {
+    fill: #b87020;
+}
+
+/* ---- Tooltip ---- */
+.tooltip {
+    position: fixed;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-family: var(--font);
+    font-size: 0.78rem;
+    color: var(--text-primary);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s var(--ease), transform 0.1s var(--ease);
+    z-index: 100;
+    min-width: 170px;
+    box-shadow: 0 4px 16px rgba(100, 70, 20, 0.12);
+    transform: translateY(4px);
+}
+
+.tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tooltip-range {
+    color: var(--pill-active-bg);
+    font-weight: 800;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+}
+
+.tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--text-secondary);
+    margin-top: 3px;
+}
+
+.tooltip-row span:last-child {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* ---- No-data message ---- */
+.no-data-msg {
+    font-family: var(--font);
+    font-size: 13px;
+    fill: var(--text-muted);
+}
+
+/* ---- Bar enter animation ---- */
+@keyframes bar-rise {
+    from {
+        transform: scaleY(0);
+    }
+
+    to {
+        transform: scaleY(1);
+    }
+}
