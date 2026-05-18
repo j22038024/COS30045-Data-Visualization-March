@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian TV Energy &amp; Electricity Markets</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+
+<body>
+
+    <div class="page-wrapper">
+
+        <!-- ── HEADER ──────────────────────────────────── -->
+        <header class="site-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <span class="eyebrow">Australian Energy Data Explorer</span>
+                    <h1>TV Energy Consumption<br><em>&amp; Electricity Markets</em></h1>
+                </div>
+                <div class="header-right">
+                    <p class="intro-text">
+                        Registered televisions in Australia span a wide range of screen technologies
+                        and sizes — each with a distinct energy footprint. Alongside, 26 years of
+                        wholesale electricity spot prices trace how Australia's power market has
+                        evolved since deregulation, through droughts, policy shifts, and the rise
+                        of renewables.
+                    </p>
+                    <div class="data-tags">
+                        <span class="tag">587 TV models</span>
+                        <span class="tag">3 screen technologies</span>
+                        <span class="tag">5 Australian states</span>
+                        <span class="tag">1998 – 2024</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ── CHART GRID ───────────────────────────────── -->
+        <main class="main-content">
+            <div class="chart-grid">
+
+                <!-- Scatter -->
+                <section class="chart-panel panel-scatter">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <h2>Energy Consumption vs. Star Rating</h2>
+                            <p>All registered TV models — higher star ratings indicate better energy efficiency</p>
+                        </div>
+                        <div class="panel-legend" id="scatter-legend"></div>
+                    </div>
+                    <div class="chart-container" id="scatter-chart"></div>
+                </section>
+
+                <!-- Donut -->
+                <section class="chart-panel panel-donut">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <h2>Mean Energy by Screen Technology</h2>
+                            <p>Average annual consumption across all TV sizes (kWh/year)</p>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="donut-chart"></div>
+                </section>
+
+                <!-- Bar -->
+                <section class="chart-panel panel-bar">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <h2>55-inch TVs — Technology Comparison</h2>
+                            <p>Mean annual energy consumption for 55" models only (kWh/year)</p>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="bar-chart"></div>
+                </section>
+
+                <!-- Line -->
+                <section class="chart-panel panel-line">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <h2>Electricity Spot Prices 1998–2024</h2>
+                            <p>Australian wholesale electricity market prices ($/MWh) — click legend to toggle states
+                            </p>
+                        </div>
+                        <div class="panel-legend" id="line-legend"></div>
+                    </div>
+                    <div class="chart-container" id="line-chart"></div>
+                </section>
+
+            </div><!-- /.chart-grid -->
+        </main>
+
+        <!-- ── FOOTER ──────────────────────────────────── -->
+        <footer class="site-footer">
+            <p>
+                Data sources:
+                <span>Australian Energy Regulator (AER)</span> ·
+                <span>Dept. of Climate Change, Energy, the Environment and Water</span>
+            </p>
+
+        </footer>
+
+    </div><!-- /.page-wrapper -->
+
+    <!-- Global tooltip -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <!-- D3 v7 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Chart scripts -->
+    <script src="scripts/scatter.js"></script>
+    <script src="scripts/donut.js"></script>
+    <script src="scripts/bar.js"></script>
+    <script src="scripts/line.js"></script>
+
+</body>
+
+</html>

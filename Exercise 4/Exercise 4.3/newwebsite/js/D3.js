@@ -2,8 +2,8 @@
    PowerSmart AU — D3.js
    ═══════════════════════════════════════════════════════════ */
 
-const margin = { top: 60, right: 160, bottom: 80, left: 220 };
-const svgWidth = 1200;
+const margin = { top: 60, right: 320, bottom: 80, left: 300 };
+const svgWidth = 1100;
 const svgHeight = 1600;
 const width = svgWidth - margin.left - margin.right;
 const height = svgHeight - margin.top - margin.bottom;
@@ -12,7 +12,7 @@ const height = svgHeight - margin.top - margin.bottom;
 const svg = d3.select(".responsive-svg-container")
     .append("svg")
     .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
-    .style("border", "1px transparent solid")
+    .style("border", "1px white solid")
 
 
 // DEBUG banner

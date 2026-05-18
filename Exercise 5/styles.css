@@ -1,0 +1,430 @@
+/* =====================================================
+   AUSTRALIAN ENERGY DATA EXPLORER — STYLES
+   ===================================================== */
+
+/* ── RESET ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── DESIGN TOKENS ──────────────────────────────────── */
+:root {
+    /* backgrounds */
+    --bg: #07090f;
+    --surface: #0c1220;
+    --surface-up: #111b2e;
+    --border: rgba(255, 255, 255, 0.07);
+    --border-hover: rgba(255, 255, 255, 0.14);
+
+    /* text */
+    --tx-primary: #eef2f7;
+    --tx-secondary: #7d8fa3;
+    --tx-muted: #3e4f60;
+
+    /* brand accent */
+    --accent: #e8a838;
+    --accent-dim: rgba(232, 168, 56, 0.15);
+
+    /* screen technology palette */
+    --lcd: #2dd4bf;
+    --led: #fb923c;
+    --oled: #f472b6;
+
+    /* state palette (line chart) */
+    --qld: #fbbf24;
+    --nsw: #60a5fa;
+    --vic: #4ade80;
+    --sa: #f87171;
+    --tas: #c084fc;
+    --avg: #f8fafc;
+
+    /* type — single font throughout */
+    --font: 'JetBrains Mono', monospace;
+
+    /* spacing */
+    --radius: 12px;
+    --radius-sm: 8px;
+    --gap: 20px;
+}
+
+/* ── BASE ────────────────────────────────────────────── */
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background: var(--bg);
+    color: var(--tx-primary);
+    font-family: var(--font);
+    line-height: 1.6;
+    min-height: 100vh;
+    /* subtle background texture */
+    background-image:
+        radial-gradient(ellipse 80% 60% at 10% 0%, rgba(14, 30, 60, 0.7) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 90% 100%, rgba(30, 15, 50, 0.5) 0%, transparent 50%);
+}
+
+/* ── PAGE WRAPPER ────────────────────────────────────── */
+.page-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 3.5vw, 48px);
+}
+
+/* ── HEADER ──────────────────────────────────────────── */
+.site-header {
+    padding: clamp(40px, 6vw, 72px) 0 clamp(32px, 5vw, 56px);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: clamp(24px, 3vw, 40px);
+    position: relative;
+}
+
+.site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(232, 168, 56, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.header-content {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+    position: relative;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-family: var(--font);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    padding: 5px 12px;
+    border: 1px solid rgba(232, 168, 56, 0.4);
+    border-radius: 3px;
+    background: var(--accent-dim);
+}
+
+.site-header h1 {
+    font-family: var(--font);
+    font-size: clamp(1.9rem, 4vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.12;
+    color: var(--tx-primary);
+    letter-spacing: -0.025em;
+}
+
+.site-header h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--tx-secondary);
+}
+
+.intro-text {
+    font-size: clamp(13px, 1.4vw, 15px);
+    color: var(--tx-secondary);
+    line-height: 1.75;
+    margin-bottom: 20px;
+    max-width: 600px;
+}
+
+.data-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    font-family: var(--font);
+    font-size: 10px;
+    padding: 4px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--tx-secondary);
+    letter-spacing: 0.04em;
+}
+
+/* ── CHART GRID ──────────────────────────────────────── */
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "scatter scatter"
+        "donut   bar    "
+        "line    line   ";
+    gap: var(--gap);
+    padding-bottom: 64px;
+}
+
+/* ── PANELS ──────────────────────────────────────────── */
+.chart-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: clamp(16px, 2.5vw, 28px);
+    transition: border-color 0.25s, box-shadow 0.25s;
+    overflow: hidden;
+    position: relative;
+}
+
+.chart-panel:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+}
+
+.panel-scatter {
+    grid-area: scatter;
+}
+
+.panel-donut {
+    grid-area: donut;
+}
+
+.panel-bar {
+    grid-area: bar;
+}
+
+.panel-line {
+    grid-area: line;
+}
+
+/* subtle top-left accent line per panel */
+.chart-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 28px;
+    right: 28px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+    opacity: 0.25;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.panel-title-group h2 {
+    font-family: var(--font);
+    font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+    font-weight: 600;
+    color: var(--tx-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 3px;
+}
+
+.panel-title-group p {
+    font-size: 11px;
+    color: var(--tx-muted);
+    font-family: var(--font);
+}
+
+/* ── CHART CONTAINERS ────────────────────────────────── */
+.chart-container {
+    position: relative;
+    width: 100%;
+}
+
+#scatter-chart {
+    height: 390px;
+}
+
+#donut-chart {
+    height: 330px;
+}
+
+#bar-chart {
+    height: 330px;
+}
+
+#line-chart {
+    height: 380px;
+}
+
+.chart-container svg {
+    display: block;
+}
+
+/* ── LEGENDS ─────────────────────────────────────────── */
+.panel-legend {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: flex-start;
+    align-content: flex-start;
+    max-width: 300px;
+    padding-top: 2px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    font-size: 11px;
+    color: var(--tx-secondary);
+    font-family: var(--font);
+    transition: color 0.15s, opacity 0.2s;
+    white-space: nowrap;
+    user-select: none;
+    padding: 2px 0;
+}
+
+.legend-item:hover {
+    color: var(--tx-primary);
+}
+
+.legend-item.inactive {
+    opacity: 0.3;
+}
+
+.legend-swatch {
+    width: 22px;
+    height: 2.5px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ── GLOBAL TOOLTIP ──────────────────────────────────── */
+.tooltip {
+    position: fixed;
+    background: rgba(7, 11, 20, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 11px 15px;
+    border-radius: var(--radius-sm);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.08s;
+    z-index: 200;
+    font-family: var(--font);
+    font-size: 12px;
+    color: var(--tx-primary);
+    line-height: 1.7;
+    max-width: 240px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+}
+
+.tooltip strong {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #fff;
+}
+
+.tt-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    color: var(--tx-secondary);
+    font-size: 11px;
+}
+
+.tt-row span:last-child {
+    color: var(--tx-primary);
+    font-family: var(--font);
+    font-size: 11px;
+}
+
+.tt-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 6px 0;
+}
+
+/* ── FOOTER ──────────────────────────────────────────── */
+.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0 40px;
+    font-size: 11px;
+    color: var(--tx-muted);
+    font-family: var(--font);
+    letter-spacing: 0.02em;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.site-footer span {
+    color: var(--tx-secondary);
+}
+
+.footer-note {
+    font-size: 10px;
+    opacity: 0.6;
+}
+
+.footer-note code {
+    background: var(--surface);
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 960px) {
+    .header-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .chart-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "scatter"
+            "donut"
+            "bar"
+            "line";
+    }
+
+    .panel-legend {
+        max-width: 100%;
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 500px) {
+
+    #scatter-chart,
+    #line-chart {
+        height: 280px;
+    }
+
+    #donut-chart,
+    #bar-chart {
+        height: 260px;
+    }
+
+    .chart-panel {
+        padding: 14px;
+    }
+}
+
+/* ── SVG FONT INHERITANCE ────────────────────────────── */
+/* All D3-rendered text picks up the single font automatically */
+svg text {
+    font-family: var(--font);
+}
