@@ -16,10 +16,9 @@
 
     <div class="app-wrapper">
 
-        <!-- Tech filter — top pill row -->
+        <!-- Tech filter pills — top -->
         <div class="filter-row" id="filter-tech-row">
             <button class="pill active" data-group="tech" data-value="all">All</button>
-            <!-- dynamically populated by interactions.js -->
         </div>
 
         <!-- Chart -->
@@ -29,15 +28,11 @@
             </div>
         </div>
 
-        <!-- Size filter — bottom pill row -->
-        <div class="filter-row" id="filter-size-row">
-            <button class="pill active" data-group="size" data-value="all">All Sizes</button>
-            <!-- dynamically populated by interactions.js -->
-        </div>
+        <!-- Size range slider — bottom -->
+        <div id="size-slider-wrap" class="size-slider-wrap"></div>
 
     </div>
 
-    <!-- Tooltip -->
     <div id="tooltip" class="tooltip"></div>
 
     <script src="js/shared-constants.js"></script>
