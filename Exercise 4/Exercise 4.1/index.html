@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SVG House with Garden using D3</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,7 +23,8 @@
         const svg = d3.select("#viz")
             .append("svg")
             .attr("width", 400)
-            .attr("height", 300);
+            .attr("height", 300)
+            .attr("style", "background: rgb(135, 206, 235)"); // Sky blue background
 
         // Garden
         svg.append("rect")

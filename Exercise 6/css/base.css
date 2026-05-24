@@ -1,256 +1,231 @@
 /* ============================================
-   BASE.CSS — Reset, Variables, Global Styles
+   BASE.CSS
    ============================================ */
 
 :root {
-    /* Warm light palette */
-    --bg: #fdf6ec;
-    --surface: #ffffff;
-    --border: #e8ddd0;
-    --border-light: #f0e8dc;
+  --bg:               #fdf6ec;
+  --surface:          #ffffff;
+  --border:           #e8ddd0;
+  --border-light:     #f0e8dc;
 
-    /* Pill colours */
-    --pill-bg: #e8ddd0;
-    --pill-text: #6b5a48;
-    --pill-active-bg: #d4780a;
-    --pill-active-text: #ffffff;
-    --pill-hover-bg: #ddd0c0;
+  --pill-bg:          #e8ddd0;
+  --pill-text:        #6b5a48;
+  --pill-active-bg:   #d4780a;
+  --pill-active-text: #ffffff;
+  --pill-hover-bg:    #ddd0c0;
 
-    /* Text */
-    --text-primary: #2c2318;
-    --text-secondary: #7a6a58;
-    --text-muted: #b0a090;
+  --text-primary:   #2c2318;
+  --text-secondary: #7a6a58;
+  --text-muted:     #b0a090;
 
-    /* Typography */
-    --font: 'Nunito', sans-serif;
-
-    /* Misc */
-    --radius-pill: 999px;
-    --radius: 6px;
-    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --font:        'Nunito', sans-serif;
+  --radius:      8px;
+  --radius-pill: 999px;
+  --ease:        cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    font-size: 16px;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
 
 body {
-    background: var(--bg);
-    color: var(--text-primary);
-    font-family: var(--font);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px 48px;
 }
 
-/* ---- App wrapper ---- */
+/* ── App wrapper: stacks two cards vertically ── */
 .app-wrapper {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px 24px 20px;
-    width: 100%;
-    max-width: 900px;
-    box-shadow: 0 4px 24px rgba(180, 140, 80, 0.10);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  width: 100%;
+  max-width: 940px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;          /* space between histogram card & scatter card */
 }
 
-/* ---- Pill rows ---- */
+/* ── Card ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px 24px;
+  box-shadow: 0 4px 24px rgba(180,140,80,0.09);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Card header ── */
+.card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.record-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--pill-active-bg);
+  white-space: nowrap;
+}
+
+/* ── Pill row ── */
 .filter-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-/* ---- Pills ---- */
 .pill {
-    background: var(--pill-bg);
-    color: var(--pill-text);
-    border: none;
-    border-radius: var(--radius-pill);
-    padding: 7px 18px;
-    font-family: var(--font);
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.18s var(--ease), color 0.18s var(--ease), transform 0.1s;
-    user-select: none;
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 6px 16px;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s var(--ease), color 0.18s var(--ease), transform 0.1s;
+  user-select: none;
 }
+.pill:hover  { background: var(--pill-hover-bg); }
+.pill.active { background: var(--pill-active-bg); color: var(--pill-active-text); }
+.pill:active { transform: scale(0.96); }
 
-.pill:hover {
-    background: var(--pill-hover-bg);
-}
+/* ── Chart containers ── */
+#histogram-container,
+#scatter-container { width: 100%; }
 
-.pill.active {
-    background: var(--pill-active-bg);
-    color: var(--pill-active-text);
-}
-
-.pill:active {
-    transform: scale(0.96);
-}
-
-/* ---- Chart wrap ---- */
-.chart-wrap {
-    position: relative;
-}
-
-#histogram-container {
-    width: 100%;
-}
-
-/* ---- Loading ---- */
+/* ── Loading ── */
 .loading-msg {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    padding: 60px 0;
-    text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 60px 0;
+  text-align: center;
 }
-
-.dots {
-    display: inline-block;
-    animation: blink 1.2s infinite;
-}
-
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.2;
-    }
-}
-
+.dots { display: inline-block; animation: blink 1.2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
 /* ============================================
-   DUAL RANGE SLIDER
+   DUAL RANGE SLIDER  (reused for both sliders)
    ============================================ */
 
-.size-slider-wrap {
-    padding: 4px 6px 2px;
-}
+.slider-wrap { padding: 0 4px; }
 
 .slider-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
 }
 
 .slider-label {
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
 }
 
 .slider-value {
-    font-size: 0.85rem;
-    font-weight: 800;
-    color: var(--pill-active-bg);
-    min-width: 90px;
-    text-align: right;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--pill-active-bg);
+  min-width: 110px;
+  text-align: right;
 }
 
-/* ---- Track area ---- */
 .slider-track-wrap {
-    position: relative;
-    height: 28px;
-    /* enough room for the thumb + hit area */
-    display: flex;
-    align-items: center;
+  position: relative;
+  height: 28px;
+  display: flex;
+  align-items: center;
 }
 
 /* Grey base rail */
 .slider-track-wrap::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: var(--pill-bg);
-    border-radius: 999px;
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 5px;
+  background: var(--pill-bg);
+  border-radius: 999px;
+  pointer-events: none;
 }
 
-/* Amber fill between handles */
+/* Amber fill */
 .slider-track {
-    position: absolute;
-    height: 5px;
-    background: var(--pill-active-bg);
-    border-radius: 999px;
-    pointer-events: none;
-    z-index: 1;
+  position: absolute;
+  height: 5px;
+  background: var(--pill-active-bg);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* Both range inputs sit on top of each other */
 .range-input {
-    position: absolute;
-    width: 100%;
-    height: 5px;
-    background: transparent;
-    appearance: none;
-    -webkit-appearance: none;
-    pointer-events: none;
-    z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  pointer-events: none;
+  z-index: 2;
 }
 
-/* Thumb — shared */
 .range-input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--pill-active-bg);
-    border: 3px solid #fff;
-    box-shadow: 0 1px 6px rgba(180, 100, 10, 0.25);
-    pointer-events: all;
-    cursor: grab;
-    transition: background 0.15s, transform 0.1s;
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--pill-active-bg);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 6px rgba(180,100,10,0.25);
+  pointer-events: all;
+  cursor: grab;
+  transition: background 0.15s, transform 0.1s;
 }
-
 .range-input::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--pill-active-bg);
-    border: 3px solid #fff;
-    box-shadow: 0 1px 6px rgba(180, 100, 10, 0.25);
-    pointer-events: all;
-    cursor: grab;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--pill-active-bg);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 6px rgba(180,100,10,0.25);
+  pointer-events: all;
+  cursor: grab;
+}
+.range-input::-webkit-slider-thumb:hover  { background: #b85e05; transform: scale(1.15); }
+.range-input::-webkit-slider-thumb:active { cursor: grabbing; }
+.range-input::-moz-range-thumb:hover      { background: #b85e05; }
+
+/* Max handle sits above min when they meet */
+.range-max { z-index: 3 !important; }
+
+
+/* ── Filter group (label + pill row) ── */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.range-input::-webkit-slider-thumb:hover {
-    background: #b85e05;
-    transform: scale(1.15);
-}
-
-.range-input::-webkit-slider-thumb:active {
-    cursor: grabbing;
-}
-
-.range-input::-moz-range-thumb:hover {
-    background: #b85e05;
-    transform: scale(1.15);
-}
-
-/* Make the max handle sit above the min when near each other */
-#range-max {
-    z-index: 3;
+.filter-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
 }

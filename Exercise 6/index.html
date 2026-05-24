@@ -1,45 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Energy Consumption Histogram</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/visualisations.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TV Energy Consumption</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/visualisations.css" />
 </head>
-
 <body>
 
-    <div class="app-wrapper">
+  <div class="app-wrapper">
 
-        <!-- Tech filter pills — top -->
-        <div class="filter-row" id="filter-tech-row">
-            <button class="pill active" data-group="tech" data-value="all">All</button>
+    <!-- ── HISTOGRAM CARD ── -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Energy Consumption Distribution</h2>
+        <span id="record-count-hist" class="record-count">— records</span>
+      </div>
+
+      <!-- Screen tech filter -->
+      <div class="filter-group">
+        <span class="filter-label">Screen Technology</span>
+        <div class="filter-row" id="filter-tech-hist">
+          <button class="pill active" data-group="tech-hist" data-value="all">All</button>
         </div>
+      </div>
 
-        <!-- Chart -->
-        <div class="chart-wrap">
-            <div id="histogram-container">
-                <div class="loading-msg" id="loading-msg">Loading<span class="dots">...</span></div>
-            </div>
-        </div>
+      <!-- Histogram SVG -->
+      <div id="histogram-container">
+        <div class="loading-msg" id="loading-msg">Loading<span class="dots">...</span></div>
+      </div>
 
-        <!-- Size range slider — bottom -->
-        <div id="size-slider-wrap" class="size-slider-wrap"></div>
-
+      <!-- Energy range slider -->
+      <div id="energy-slider-wrap" class="slider-wrap" data-label="Energy Consumption"></div>
     </div>
 
-    <div id="tooltip" class="tooltip"></div>
+    <!-- ── SCATTER CARD ── -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Energy vs Screen Size</h2>
+        <span id="record-count-scatter" class="record-count">— records</span>
+      </div>
 
-    <script src="js/shared-constants.js"></script>
-    <script src="js/load-data.js"></script>
-    <script src="js/histogram.js"></script>
-    <script src="js/interactions.js"></script>
+      <!-- Screen tech filter -->
+      <div class="filter-group">
+        <span class="filter-label">Screen Technology</span>
+        <div class="filter-row" id="filter-tech-scatter">
+          <button class="pill active" data-group="tech-scatter" data-value="all">All</button>
+        </div>
+      </div>
+
+      <!-- Screen size range slider -->
+      <div id="size-slider-wrap" class="slider-wrap" data-label="Screen Size"></div>
+
+      <!-- Scatter SVG -->
+      <div id="scatter-container"></div>
+    </div>
+
+  </div>
+
+  <div id="tooltip" class="tooltip"></div>
+
+  <script src="js/shared-constants.js"></script>
+  <script src="js/load-data.js"></script>
+  <script src="js/histogram.js"></script>
+  <script src="js/scatterplot.js"></script>
+  <script src="js/interactions.js"></script>
 
 </body>
-
 </html>

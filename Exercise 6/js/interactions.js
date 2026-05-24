@@ -1,151 +1,223 @@
 /* ============================================
-   INTERACTIONS.JS — Pill + Range Slider Logic
+   INTERACTIONS.JS
+
+   Each chart has its own independent filter state:
+
+   HISTOGRAM
+     · tech pills  → #filter-tech-hist
+     · energy slider
+
+   SCATTER
+     · tech pills  → #filter-tech-scatter
+     · size slider
+
+   Changing a histogram filter only redraws the
+   histogram; changing a scatter filter only
+   redraws the scatter.
    ============================================ */
 
-const _state = {
-    tech: "all",
-    sizeMin: 0,
-    sizeMax: Infinity,
+const _histState = {
+  tech:      "all",
+  energyMin: 0,
+  energyMax: Infinity,
 };
 
+const _scatterState = {
+  tech:    "all",
+  sizeMin: 0,
+  sizeMax: Infinity,
+};
+
+/* ============================================
+   Entry point
+   ============================================ */
 function initFilters(data) {
-    _buildTechPills(data);
-    _buildSizeSlider(data);
-    _wireClicks();
+  _buildTechPills(data, "filter-tech-hist",    "tech-hist");
+  _buildTechPills(data, "filter-tech-scatter", "tech-scatter");
+  _buildEnergySlider(data);
+  _buildSizeSlider(data);
+  _wireClicks();
 }
 
 /* ============================================
-   Tech Pills
+   Tech pills  (shared builder, two instances)
    ============================================ */
-
-function _buildTechPills(data) {
-    const techs = Array.from(new Set(data.map(ACCESSORS.tech))).sort();
-    const row = document.getElementById("filter-tech-row");
-    techs.forEach(tech => row.appendChild(_makePill(tech, "tech", tech)));
-}
-
-function _makePill(label, group, value) {
+function _buildTechPills(data, rowId, group) {
+  const techs = Array.from(new Set(data.map(ACCESSORS.tech))).sort();
+  const row   = document.getElementById(rowId);
+  techs.forEach(tech => {
     const btn = document.createElement("button");
-    btn.className = "pill";
+    btn.className     = "pill";
     btn.dataset.group = group;
-    btn.dataset.value = value;
-    btn.textContent = label;
-    return btn;
+    btn.dataset.value = tech;
+    btn.textContent   = tech;
+    row.appendChild(btn);
+  });
 }
 
 function _setActivePill(rowId, activeBtn) {
-    document.querySelectorAll(`#${rowId} .pill`).forEach(p => p.classList.remove("active"));
-    activeBtn.classList.add("active");
+  document.querySelectorAll(`#${rowId} .pill`).forEach(p => p.classList.remove("active"));
+  activeBtn.classList.add("active");
 }
 
 /* ============================================
-   Dual Range Slider
+   Slider factory
    ============================================ */
+function _buildSlider(containerId, minVal, maxVal, labelFn, onChangeFn, idPrefix) {
+  const wrap = document.getElementById(containerId);
 
-function _buildSizeSlider(data) {
-    const sizes = data.map(ACCESSORS.size);
-    const minSize = Math.floor(Math.min(...sizes));
-    const maxSize = Math.ceil(Math.max(...sizes));
-
-    _state.sizeMin = minSize;
-    _state.sizeMax = maxSize;
-
-    console.log(`%c[TV Data] Screen sizes span ${minSize}" – ${maxSize}"`,
-        "color: #d4780a; font-weight: bold;");
-
-    const wrap = document.getElementById("size-slider-wrap");
-
-    wrap.innerHTML = `
+  wrap.innerHTML = `
     <div class="slider-header">
-      <span class="slider-label">Screen Size</span>
-      <span class="slider-value" id="slider-value">${minSize}" – ${maxSize}"</span>
+      <span class="slider-label">${wrap.dataset.label || ""}</span>
+      <span class="slider-value" id="${idPrefix}-value">${labelFn(minVal, maxVal)}</span>
     </div>
     <div class="slider-track-wrap">
-      <div class="slider-track" id="slider-track"></div>
-      <input type="range" class="range-input" id="range-min"
-             min="${minSize}" max="${maxSize}" value="${minSize}" step="1">
-      <input type="range" class="range-input" id="range-max"
-             min="${minSize}" max="${maxSize}" value="${maxSize}" step="1">
+      <div class="slider-track" id="${idPrefix}-track"></div>
+      <input type="range" class="range-input" id="${idPrefix}-min"
+             min="${minVal}" max="${maxVal}" value="${minVal}" step="1">
+      <input type="range" class="range-input range-max" id="${idPrefix}-max"
+             min="${minVal}" max="${maxVal}" value="${maxVal}" step="1">
     </div>
   `;
 
-    const rangeMin = document.getElementById("range-min");
-    const rangeMax = document.getElementById("range-max");
-    const track = document.getElementById("slider-track");
-    const valueLabel = document.getElementById("slider-value");
+  const elMin   = document.getElementById(`${idPrefix}-min`);
+  const elMax   = document.getElementById(`${idPrefix}-max`);
+  const track   = document.getElementById(`${idPrefix}-track`);
+  const display = document.getElementById(`${idPrefix}-value`);
+  const pct     = v => ((v - minVal) / (maxVal - minVal)) * 100;
 
-    function updateSlider() {
-        let lo = parseInt(rangeMin.value);
-        let hi = parseInt(rangeMax.value);
+  track.style.left  = "0%";
+  track.style.width = "100%";
 
-        /* Prevent handles crossing */
-        if (lo > hi) {
-            if (this === rangeMin) { lo = hi; rangeMin.value = lo; }
-            else { hi = lo; rangeMax.value = hi; }
-        }
-
-        /* Fill track between handles */
-        const pct = (v) => ((v - minSize) / (maxSize - minSize)) * 100;
-        track.style.left = `${pct(lo)}%`;
-        track.style.width = `${pct(hi) - pct(lo)}%`;
-
-        valueLabel.textContent = lo === hi ? `${lo}"` : `${lo}" – ${hi}"`;
-
-        _state.sizeMin = lo;
-        _state.sizeMax = hi;
-        _applyFilters();
+  function onInput() {
+    let lo = parseInt(elMin.value);
+    let hi = parseInt(elMax.value);
+    if (lo > hi) {
+      if (this === elMin) { lo = hi; elMin.value = lo; }
+      else                { hi = lo; elMax.value = hi; }
     }
+    track.style.left    = `${pct(lo)}%`;
+    track.style.width   = `${pct(hi) - pct(lo)}%`;
+    display.textContent = labelFn(lo, hi);
+    onChangeFn(lo, hi);
+  }
 
-    rangeMin.addEventListener("input", updateSlider);
-    rangeMax.addEventListener("input", updateSlider);
+  elMin.addEventListener("input", onInput);
+  elMax.addEventListener("input", onInput);
+}
 
-    /* Initial track fill */
-    const pct = (v) => ((v - minSize) / (maxSize - minSize)) * 100;
-    track.style.left = `${pct(minSize)}%`;
-    track.style.width = `${pct(maxSize) - pct(minSize)}%`;
+/* ---- Energy slider (histogram card) ---- */
+function _buildEnergySlider(data) {
+  const vals = data.map(ACCESSORS.energy);
+  const lo   = Math.floor(Math.min(...vals));
+  const hi   = Math.ceil (Math.max(...vals));
+  _histState.energyMin = lo;
+  _histState.energyMax = hi;
+
+  _buildSlider(
+    "energy-slider-wrap",
+    lo, hi,
+    (a, b) => `${a.toLocaleString()} – ${b.toLocaleString()} kWh/yr`,
+    (a, b) => { _histState.energyMin = a; _histState.energyMax = b; _applyHistogram(); },
+    "energy"
+  );
+}
+
+/* ---- Size slider (scatter card) ---- */
+function _buildSizeSlider(data) {
+  const vals = data.map(ACCESSORS.size);
+  const lo   = Math.floor(Math.min(...vals));
+  const hi   = Math.ceil (Math.max(...vals));
+  _scatterState.sizeMin = lo;
+  _scatterState.sizeMax = hi;
+
+  _buildSlider(
+    "size-slider-wrap",
+    lo, hi,
+    (a, b) => a === b ? `${a}"` : `${a}" – ${b}"`,
+    (a, b) => { _scatterState.sizeMin = a; _scatterState.sizeMax = b; _applyScatter(); },
+    "size"
+  );
 }
 
 /* ============================================
-   Event wiring
+   Click wiring
    ============================================ */
-
 function _wireClicks() {
-    document.getElementById("filter-tech-row").addEventListener("click", e => {
-        const btn = e.target.closest(".pill");
-        if (!btn) return;
-        _setActivePill("filter-tech-row", btn);
-        _state.tech = btn.dataset.value;
-        _applyFilters();
-    });
+  /* Histogram tech pills */
+  document.getElementById("filter-tech-hist").addEventListener("click", e => {
+    const btn = e.target.closest(".pill");
+    if (!btn) return;
+    _setActivePill("filter-tech-hist", btn);
+    _histState.tech = btn.dataset.value;
+    _applyHistogram();
+  });
+
+  /* Scatter tech pills */
+  document.getElementById("filter-tech-scatter").addEventListener("click", e => {
+    const btn = e.target.closest(".pill");
+    if (!btn) return;
+    _setActivePill("filter-tech-scatter", btn);
+    _scatterState.tech = btn.dataset.value;
+    _applyScatter();
+  });
 }
 
 /* ============================================
-   Filter Functions
+   Filter functions
    ============================================ */
 
 function filterByTech(data, tech) {
-    if (tech === "all") return data;
-    return data.filter(d => d.screenTech === tech);
+  if (tech === "all") return data;
+  return data.filter(d => d.screenTech === tech);
+}
+
+function filterByEnergy(data, min, max) {
+  return data.filter(d => { const e = ACCESSORS.energy(d); return e >= min && e <= max; });
 }
 
 function filterBySize(data, min, max) {
-    return data.filter(d => {
-        const s = ACCESSORS.size(d);
-        return s >= min && s <= max;
-    });
+  return data.filter(d => { const s = ACCESSORS.size(d); return s >= min && s <= max; });
 }
 
-function _applyFilters() {
-    let result = window._tvData;
-    result = filterByTech(result, _state.tech);
-    result = filterBySize(result, _state.sizeMin, _state.sizeMax);
-    console.log(
-        `%c[TV Data] ${result.length} records — tech: ${_state.tech}, size: ${_state.sizeMin}"–${_state.sizeMax}"`,
-        "color: #d4780a;"
-    );
-    updateHistogram(result);
+/* ============================================
+   Apply — one function per chart
+   ============================================ */
+
+function _applyHistogram() {
+  let result = window._tvData;
+  result = filterByTech  (result, _histState.tech);
+  result = filterByEnergy(result, _histState.energyMin, _histState.energyMax);
+
+  const counter = document.getElementById("record-count-hist");
+  if (counter) counter.textContent = `${result.length.toLocaleString()} records`;
+
+  console.log(
+    `%c[Histogram] ${result.length} records | tech: ${_histState.tech} | ` +
+    `energy: ${_histState.energyMin}–${_histState.energyMax} kWh`,
+    "color:#d4780a;"
+  );
+  updateHistogram(result);
 }
 
-window.filterByTech = filterByTech;
-window.filterBySize = filterBySize;
-window.initFilters = initFilters;
+function _applyScatter() {
+  let result = window._tvData;
+  result = filterByTech(result, _scatterState.tech);
+  result = filterBySize(result, _scatterState.sizeMin, _scatterState.sizeMax);
+
+  const counter = document.getElementById("record-count-scatter");
+  if (counter) counter.textContent = `${result.length.toLocaleString()} records`;
+
+  console.log(
+    `%c[Scatter] ${result.length} records | tech: ${_scatterState.tech} | ` +
+    `size: ${_scatterState.sizeMin}"–${_scatterState.sizeMax}"`,
+    "color:#4a90d9;"
+  );
+  updateScatter(result);
+}
+
+/* Expose */
+window.filterByTech   = filterByTech;
+window.filterByEnergy = filterByEnergy;
+window.filterBySize   = filterBySize;
+window.initFilters    = initFilters;
